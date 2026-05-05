@@ -1,5 +1,4 @@
 import '/ui/styles/theme.dart';
-
 import 'ui/simulacao.dart';
 import 'package:flutter/material.dart';
 

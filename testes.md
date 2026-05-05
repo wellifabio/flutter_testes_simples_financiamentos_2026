@@ -72,3 +72,17 @@ testWidgets('Teste de preenchimento de formulário', (WidgetTester tester) async
 - pumpAndSettle(): Essencial para validar formulários que fecham após um clique, pois garante que o Flutter processou todas as mudanças de tela.
 - Keys: Utilizar Key (Key('campo_email')) no código de produção facilita muito a localização de widgets específicos nos testes.
 - Testes de Integração: Para testes que rodam em simuladores reais ou dispositivos físicos, utilize o pacote *integration_test*.
+
+## Onde fica o arquivo de teste
+Para testes de integração no emulador o arquivo de testes deve ficar no diretório chamado **integration_test** e a dependência deve ser adicionada no arquivo pubspec.yaml
+```yaml
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+```
+Para executar os testes no emulador, o mesmo precisa estar aberto, execute o comando a seguir:
+```bash
+flutter test integration_test/nome_do_arquivo_de_teste.dart
+```

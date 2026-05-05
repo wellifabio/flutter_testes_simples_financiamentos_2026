@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import './styles/colors.dart';
 import '../root/file.dart';
@@ -22,27 +21,24 @@ class _SimulacaoState extends State<Simulacao> {
     custos: 0,
   );
 
-  double c = 0;
-  double i = 0;
-  double t = 0;
-  double custos = 0;
-  double m = 0;
-  double p = 0;
-
-  void calcular() {
+  void mostrarResultado() {
     carregarDados();
-    setState(() {
-      m = c * pow(1 + i, t) + custos;
-      p = m / t;
-    });
+    if (f.valor <= 0 || f.taxa < 0 || f.parcelas <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Por favor, preencha todos os campos corretamente.'),
+        ),
+      );
+      return;
+    }
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text('Resultado'),
           content: Text(
-            'Valor total a ser pago: R\$ ${m.toStringAsFixed(2)}\n'
-            'Valor da parcela: R\$ ${p.toStringAsFixed(2)}',
+            'Valor total a ser pago: R\$ ${f.montante().toStringAsFixed(2)}\n'
+            'Valor da parcela: R\$ ${f.parcela().toStringAsFixed(2)}',
           ),
           actions: [
             TextButton(
@@ -54,14 +50,10 @@ class _SimulacaoState extends State<Simulacao> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                f.valor = c;
-                f.taxa = i;
-                f.parcelas = t.toInt();
-                f.custos = custos;
-                f.data = DateTime.now();
                 dados.add(f);
                 salvarDados();
               },
+              key: Key('salvar'),
               child: Text('Salvar'),
             ),
           ],
@@ -120,13 +112,14 @@ class _SimulacaoState extends State<Simulacao> {
             TextField(
               keyboardType: TextInputType.number,
               style: TextStyle(color: AppColors.p1),
+              key: Key('valor'),
               decoration: InputDecoration(
                 labelText: 'Digite o valor',
                 hintText: 'Ex: 10000',
               ),
               onChanged: (value) {
                 setState(() {
-                  c = double.parse(value);
+                  f.valor = double.parse(value);
                 });
               },
               textAlign: TextAlign.right,
@@ -135,6 +128,7 @@ class _SimulacaoState extends State<Simulacao> {
             TextField(
               keyboardType: TextInputType.number,
               style: TextStyle(color: AppColors.p1),
+              key: Key('taxa'),
               decoration: InputDecoration(
                 labelText: 'Digite a taxa de juros',
                 hintText: 'Ex: 0.75',
@@ -142,7 +136,8 @@ class _SimulacaoState extends State<Simulacao> {
               ),
               onChanged: (value) {
                 setState(() {
-                  i = double.parse(value) / 100;
+                  value = value.replaceAll(',', '.');
+                  f.taxa = double.parse(value);
                 });
               },
               textAlign: TextAlign.right,
@@ -152,13 +147,14 @@ class _SimulacaoState extends State<Simulacao> {
             TextField(
               keyboardType: TextInputType.number,
               style: TextStyle(color: AppColors.p1),
+              key: Key('parcelas'),
               decoration: InputDecoration(
                 labelText: 'Digite o número de parcelas',
                 hintText: 'Ex: 12',
               ),
               onChanged: (value) {
                 setState(() {
-                  t = double.parse(value);
+                  f.parcelas = int.parse(value);
                 });
               },
               textAlign: TextAlign.right,
@@ -168,29 +164,35 @@ class _SimulacaoState extends State<Simulacao> {
             TextField(
               keyboardType: TextInputType.number,
               style: TextStyle(color: AppColors.p1),
+              key: Key('custos'),
               decoration: InputDecoration(
                 labelText: 'Digite o total de taxas e custos adicionais',
                 hintText: 'Ex: 500',
               ),
               onChanged: (value) {
                 setState(() {
-                  custos = double.parse(value);
+                  f.custos = double.parse(value);
                 });
               },
               textAlign: TextAlign.right,
             ),
 
-            ElevatedButton(onPressed: calcular, child: Text('Calcular')),
+            ElevatedButton(
+              onPressed: mostrarResultado,
+              key: Key('calcular'),
+              child: Text('Calcular Financiamento'),
+            ),
             ElevatedButton(
               onPressed: irParaSimulacoes,
+              key: Key('ver_simulacoes'),
               child: Text('Ver Simulações Anteriores'),
             ),
             Text(
-              'Valor total a ser pago: R\$ ${m.toStringAsFixed(2)}',
+              'Valor total a ser pago: R\$ ${f.montante().toStringAsFixed(2)}',
               style: TextStyle(fontSize: 18),
             ),
             Text(
-              'Valor da parcela: R\$ ${p.toStringAsFixed(2)}',
+              'Valor da parcela: R\$ ${f.parcela().toStringAsFixed(2)}',
               style: TextStyle(fontSize: 18),
             ),
           ],

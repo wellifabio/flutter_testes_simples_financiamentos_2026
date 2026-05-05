@@ -10,7 +10,7 @@ abstract class GerenciaArquivo {
 
   static Future<File> get _arquivoLocal async {
     final caminho = await _caminhoLocal;
-    return File('$caminho/anotacoes.csv');
+    return File('$caminho/simulacoes.csv');
   }
 
   static Future<File> salvarArquivo(String texto) {

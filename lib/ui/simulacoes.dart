@@ -88,7 +88,7 @@ class _SimulacoesState extends State<Simulacoes> {
                 '${DateFormat('dd/MM/yyyy').format(DateTime.parse(dados[i].data.toString()))} - ${DateFormat('hh:mm').format(DateTime.parse(dados[i].data.toString()))}',
               ),
               subtitle: Text(
-                '${dados[i].valor.toStringAsFixed(2)}, ${dados[i].taxa.toStringAsFixed(2)}%, ${dados[i].parcelas} parcelas, Custos: ${dados[i].custos.toStringAsFixed(2)}',
+                'Valor: R\$ ${dados[i].valor.toStringAsFixed(2)}, Taxa: ${dados[i].taxa.toStringAsFixed(2)}%,\nCustos: R\$ ${dados[i].custos.toStringAsFixed(2)}, Montante: R\$ ${dados[i].montante().toStringAsFixed(2)},\n${dados[i].parcelas} parcelas de: R\$ ${dados[i].parcela().toStringAsFixed(2)}',
               ),
               trailing: GestureDetector(
                 onTap: () {
