@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('', (WidgetTester tester) async {
+  testWidgets('Teste de simulação de financiamento', (WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
         title: 'Anotações',
