@@ -119,6 +119,7 @@ class _SimulacaoState extends State<Simulacao> {
               ),
               onChanged: (value) {
                 setState(() {
+                  value = value.replaceAll(',', '.');
                   f.valor = double.parse(value);
                 });
               },
@@ -171,6 +172,7 @@ class _SimulacaoState extends State<Simulacao> {
               ),
               onChanged: (value) {
                 setState(() {
+                  value = value.replaceAll(',', '.');
                   f.custos = double.parse(value);
                 });
               },
@@ -188,11 +190,11 @@ class _SimulacaoState extends State<Simulacao> {
               child: Text('Ver Simulações Anteriores'),
             ),
             Text(
-              'Valor total a ser pago: R\$ ${f.montante().toStringAsFixed(2)}',
+              'Valor total a ser pago: R\$ ${f.montante().toStringAsFixed(2).replaceAll('.', ',')}',
               style: TextStyle(fontSize: 18),
             ),
             Text(
-              'Valor da parcela: R\$ ${f.parcela().toStringAsFixed(2)}',
+              'Valor da parcela: R\$ ${f.parcela().toStringAsFixed(2).replaceAll('.', ',')}',
               style: TextStyle(fontSize: 18),
             ),
           ],

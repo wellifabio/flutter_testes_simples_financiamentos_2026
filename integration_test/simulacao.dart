@@ -23,21 +23,26 @@ void main() {
     await tester.enterText(find.byKey(Key('custos')), '800');
     await tester.pump(const Duration(seconds: 1));
     await tester.tap(find.byKey(Key('calcular')));
+    await tester.pumpAndSettle();
     await tester.pump(const Duration(seconds: 1));
     await tester.tap(find.byKey(Key('salvar')));
-    await tester.pump(const Duration(seconds: 1));
     await tester.pumpAndSettle();
+    await tester.pump(const Duration(seconds: 1));
+    //Aguardar mais 10 na outra tela para garantir que os dados sejam processados e exibidos corretamente
     await tester.pump(const Duration(seconds: 10));
-    // Verifique se o widget Simulacao foi renderizado
-    expect(find.byType(Simulacao), findsOneWidget);
+    // Verificar se o widget com o texto "Simulações" está presente na árvore de widgets
+    expect(find.text('Simulações'), findsOneWidget);
+    // Verificar se os widget com o texto contendo "R$ 12849,93" e "R$ 535,41" estão listados nesta página, confirmando que o resultado do cálculo foi exibido corretamente.
+    expect(find.textContaining('R\$ 12849,93'), findsOneWidget);
+    expect(find.textContaining('R\$ 535,41'), findsOneWidget);
   });
 }
 
 /*
 Dados calculados com Excel para validar os resultados do aplicativo:
 Valor	Taxa	Parcelas	Custos	Montante	Valor Parcela
-50000	0,75	36	1200	 66.632,27 	 1.850,90 
-10000	0,78	24	800	 12.849,93 	 535,41 
+50000	0,75	36	1200	 66632,27 	 1850,90 
+10000	0,78	24	800	 12849,93 	 535,41 
 */
 
 /*
