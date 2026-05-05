@@ -27,3 +27,7 @@ flutter test integration_test/simulacao.dart
 |-|-|
 |![Screenshot03](./assets/info/screenshot03.png)|![Screenshot04](./assets/info/screenshot04.png)|
 |![Screenshot05](./assets/info/screenshot05.png)||
+
+## Atividades
+Crie um arquivo de testes de **integração automatizados** para pelo menos dois aplicativos que você desenvolveu e colocou no github em repositórios públicos.
+Execute os testes até que não retorne sem nenhum erro 'All tests passed!'.
