@@ -23,8 +23,7 @@ flutter test integration_test/simulacao.dart
 ``` 
 
 ## Screenshots
-![Screenshot01](./assets/info/screenshot01.png)
-![Screenshot02](./assets/info/screenshot02.png)
-![Screenshot03](./assets/info/screenshot03.png)
-![Screenshot04](./assets/info/screenshot04.png)
-![Screenshot05](./assets/info/screenshot05.png)
+|![Screenshot01](./assets/info/screenshot01.png)|![Screenshot02](./assets/info/screenshot02.png)|
+|-|-|
+|![Screenshot03](./assets/info/screenshot03.png)|![Screenshot04](./assets/info/screenshot04.png)|
+|![Screenshot05](./assets/info/screenshot05.png)||
